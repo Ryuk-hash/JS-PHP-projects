@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon.ico -->
+  <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+
+  <!-- Google Fonts [Lato] -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+  <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+
+  <!-- Local Styling -->
+  <link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+  <!-- Media Query -->
+  <!-- <link rel="stylesheet" type="text/css" href="./css/media.css"> -->
+
+  <!-- Title -->
+  <title>Skill Management Portal</title>
+</head>
+
+<body>
+
+  <div class="container-fluid register">
+    <div class="row vh-100">
+
+      <div class="col-md-6">
+        <div class="left_side h-100">
+          <img alt="Dashboard-image" src="./assets/display3.jpg">
+        </div>
+      </div>
+
+      <div class="col-md-6 bg-set">
+        <div class="right_side h-100 pt-5">
+          <nav class="topbar">
+            <div class="main_logo">
+              <img src="assets/logo.png">
+            </div>
+
+            <div class="main_heading">
+              <h1>SKILLIX</h1>
+            </div>
+          </nav>
+
+          <div class="container form_area py-5">
+            <form>
+              <div class="row mb-4">
+
+                <div class="col box-shadow p-2">
+                  <label for="name" class="form-label">Name*</label>
+                  <input type="text" class="form-control" id="name" name="name" title="Fill in your name"
+                    placeholder="John Doe . . ." required>
+                </div>
+
+
+
+                <div class="col ml-2 box-shadow p-2">
+                  <label for="email" class="form-label">Email Address*</label>
+                  <input type="email" class="form-control" id="email" name="email" title="Fill in your email address"
+                    placeholder="johndoe@gmail.com" required>
+                </div>
+              </div>
+
+              <label for="skills" class="form-label">Add Skills*</label>
+              <div class="row mb-4">
+                <div class="col box-shadow p-2">
+                  <select class="form-select w-100 p-2" id="technology" name="technology">
+                    <option selected value="none">Select Technology</option>
+                    <option value="1">Web Development</option>
+                    <option value="2">AI/ML</option>
+                    <option value="3">DevOps</option>
+                    <option value="4">Salesforce</option>
+                    <option value="5">Cloud Computing</option>
+                    <option value="6">Others</option>
+                  </select>
+                </div>
+
+                <div class="col box-shadow ml-2 p-2">
+                  <select class="form-select w-100 p-2" id="level" name="level">
+                    <option selected value="none">Select Skill Level</option>
+                    <option value="1">Basic</option>
+                    <option value="2">Intermediate</option>
+                    <option value="3">Advanced</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row w-100">
+                <button id="add_skill" class="container btn btn-primary w-50 mt-2 p-2">ADD
+                  SKILL</button>
+              </div>
+
+              <div id="display_skills" class="row mt-5"></div>
+
+              <div class="row w-100 mt-5">
+                <button id="submit_button" disabled type="submit" class="btn btn-primary w-100 mt-2 mx-auto p-2"
+                  title="Please select atleast one technology">SUBMIT</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+/* --------------------------- BASIC INITIALIZATION & SETUP --------------------------- */
+/* ------------------------------------------------------------------------------------------------------------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  font-family: 'Lato', 'sans-serif';
+  line-height: 150%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  color: #e9a009;
+  font-style: italic;
+  text-align: center;
+  letter-spacing: 8px;
+}
+
+.col-md-6 {
+  padding: 0;
+}
+
+/* --------------------------- RIGHT SECTION (general) STYLING --------------------------- */
+/* ------------------------------------------------------------------------------------------------------------ */
+
+.right_side {
+  width: 80%;
+  margin: auto;
+}
+
+.bg-set {
+  background: #dae1e6;
+}
+
+.box-shadow {
+  border-radius: 10px;
+  box-shadow: rgba(42, 113, 184, 0.2) 0px 8px 24px;
+}
+
+/* --------------------------- RIGHT SECTION (heading) STYLING --------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+}
+
+.main_logo img {
+  width: 100px;
+  border-radius: 50px;
+  margin-right: 100px;
+}
+
+/* --------------------------- RIGHT SECTION (form) STYLING --------------------------- */
+
+.form-label {
+  display: block;
+  color: #214151;
+}
+
+.btn {
+  background-color: #d269f1;
+  color: #fff;
+  transition: all 0.6s;
+}
+
+.btn:hover,
+.btn:active,
+.btn:visited,
+.btn:focus {
+  background-color: #d269f1;
+}
+
+#submit_button:disabled {
+  color: #fff;
+  background-color: #000;
+  opacity: 0.8;
+}
+
+/* --------------------------- RIGHT SECTION (display-skills) STYLING --------------------------- */
+
+.display_skills {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.displayBox {
+  font-size: 80%;
+  margin: 10px;
+  padding: 5px;
+  background: #efbb60;
+  color: #555555;
+  border-radius: 10px;
+  cursor: pointer;
+}
