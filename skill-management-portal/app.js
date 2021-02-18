@@ -137,7 +137,7 @@ class Store {
 
 // Event Listeners: DOM-content-loaded, onSubmits, onClicks, etc.
 window.addEventListener('DOMContentLoaded', function () {
-  // fetchTechnologies();
+  fetchTechnologies();
   Store.display();
 });
 addSkillBtn.addEventListener('click', (e) => addSkillHandler(e));
@@ -147,46 +147,39 @@ swapToBack.addEventListener('click', (e) => swapPageHandler(e));
 mainTable.addEventListener('click', (e) => deleteRecordHandler(e));
 
 // Action-handler-functions & other Utilities
-// async function fetchTechnologies() {
-//   let url = 'https://demo.stratbeans.com/atum-barium/index.php?r=site/fetchTechnologies';
-//   const t = await (
-//     await fetch(url, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//   ).json();
+function fetchTechnologies() {
+  const xhr = new XMLHttpRequest();
+  const url = 'https://demo.stratbeans.com/atum-barium/index.php?r=site/fetchTechnologies';
 
-//   console.log(t);
-// }
-// const xhr = new XMLHttpRequest();
-// const url = 'https://demo.stratbeans.com/atum-barium/index.php?r=site/fetchTechnologies';
+  xhr.open('GET', url, true);
 
-// xhr.open('GET', url, true);
-// xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function () {
+    if (this.status === 200) {
+      const technologies = JSON.parse(this.responseText);
 
-// xhr.onload = function () {
-//   if (this.status === 200) {
-//     const technologies = JSON.parse(this.responseText);
-//     console.log(technologies);
-//     // let output = '';
+      const technologySelectDiv = document.getElementById('technology-drop');
 
-//     // technologies.forEach(function (technology) {
-//     //   output += `
-//     //     <ul>
-//     //        <li>ID: ${technology.id}</li>
-//     //        <li>Name: ${technology.name}</li>
-//     //        <li>Favorite Game: ${technology.favoritegame}</li>
-//     //     </ul>
-//     //     `;
-//     // });
+      let output = '<option selected value="none">Select Technology</option>';
 
-//     // document.getElementById('technologies').innerHTML = output;
-//   }
-// };
+      technologies.forEach((technology) => {
+        output += `<option value="${technology.id}">${technology.name}</option>`;
+      });
 
-// xhr.send();
+      output = `<select class="form-select w-100 p-2" id="technology" name="technology">${output}</select>`;
+
+      technologySelectDiv.innerHTML = output;
+    } else {
+      swal({
+        title: 'Network Error:',
+        text: `Failed to make a network request to URL: ${url} - kindly try again!`,
+        icon: 'error',
+        button: 'Close',
+      });
+    }
+  };
+
+  xhr.send();
+}
 
 const addSkillHandler = (e) => {
   e.preventDefault();
