@@ -11,7 +11,7 @@ const swapToBack = document.getElementById('swapToBack');
 
 const mainTable = document.getElementById('main-table');
 const tableBody = document.getElementById('table-body');
-const contentHolderDiv = document.getElementById('content-holder');
+// const contentHolderDiv = document.getElementById('content-holder');
 
 // User class for initializing a new user
 class User {
@@ -100,10 +100,22 @@ class Store {
     if (flag) {
       users.push(record);
       localStorage.setItem('users', JSON.stringify(users));
-      alert('User added!');
+      swal({
+        title: 'Welcome!',
+        text: 'User added successfully!',
+        icon: 'success',
+        button: 'Close',
+      });
+      // alert('User added!');
       return true;
     } else {
-      alert('A user with that email already exists!');
+      swal({
+        title: 'Duplicate Record:',
+        text: 'A user with that email already exists!',
+        icon: 'error',
+        button: 'Close',
+      });
+      // alert('A user with that email already exists!');
       return false;
     }
   }
@@ -124,7 +136,10 @@ class Store {
 }
 
 // Event Listeners: DOM-content-loaded, onSubmits, onClicks, etc.
-window.addEventListener('DOMContentLoaded', Store.display());
+window.addEventListener('DOMContentLoaded', function () {
+  // fetchTechnologies();
+  Store.display();
+});
 addSkillBtn.addEventListener('click', (e) => addSkillHandler(e));
 inputForm.addEventListener('submit', (e) => submitFormHandler(e));
 swapToFront.addEventListener('click', (e) => swapPageHandler(e));
@@ -132,6 +147,47 @@ swapToBack.addEventListener('click', (e) => swapPageHandler(e));
 mainTable.addEventListener('click', (e) => deleteRecordHandler(e));
 
 // Action-handler-functions & other Utilities
+// async function fetchTechnologies() {
+//   let url = 'https://demo.stratbeans.com/atum-barium/index.php?r=site/fetchTechnologies';
+//   const t = await (
+//     await fetch(url, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     })
+//   ).json();
+
+//   console.log(t);
+// }
+// const xhr = new XMLHttpRequest();
+// const url = 'https://demo.stratbeans.com/atum-barium/index.php?r=site/fetchTechnologies';
+
+// xhr.open('GET', url, true);
+// xhr.setRequestHeader('Content-Type', 'application/json');
+
+// xhr.onload = function () {
+//   if (this.status === 200) {
+//     const technologies = JSON.parse(this.responseText);
+//     console.log(technologies);
+//     // let output = '';
+
+//     // technologies.forEach(function (technology) {
+//     //   output += `
+//     //     <ul>
+//     //        <li>ID: ${technology.id}</li>
+//     //        <li>Name: ${technology.name}</li>
+//     //        <li>Favorite Game: ${technology.favoritegame}</li>
+//     //     </ul>
+//     //     `;
+//     // });
+
+//     // document.getElementById('technologies').innerHTML = output;
+//   }
+// };
+
+// xhr.send();
+
 const addSkillHandler = (e) => {
   e.preventDefault();
 
@@ -140,7 +196,12 @@ const addSkillHandler = (e) => {
 
   // Check if the both dropdown fields are selected or not
   if (technologyDD.value === 'none' || levelDD.value === 'none') {
-    alert('Please select a valid technology and a valid skill level to go with it!');
+    swal({
+      title: 'Missing Fields:',
+      text: 'Please select a valid technology and a valid skill level to go with it!',
+      icon: 'warning',
+      button: 'Close',
+    });
   } else {
     if (submitBtn.disabled) {
       submitBtn.disabled = false;
@@ -165,7 +226,12 @@ const addSkillHandler = (e) => {
       newElement.appendChild(skillLevel);
       displaySkillsDiv.appendChild(newElement);
     } else {
-      alert('Duplication-Record-Error: Same technology already present!');
+      swal({
+        title: 'Duplicate Record:',
+        text: 'A technology with the same name is already present!',
+        icon: 'error',
+        button: 'Close',
+      });
     }
   }
 };
@@ -210,6 +276,7 @@ const submitFormHandler = (e) => {
 
 const clearFields = (target) => {
   displaySkillsDiv.innerHTML = '';
+  submitBtn.disabled = true;
   target.reset();
 };
 
@@ -237,10 +304,15 @@ const swapPageHandler = (e) => {
 
 const deleteRecordHandler = (e) => {
   const target = e.target;
-  console.log(target.parentElement.parentElement);
 
   if (target.id === 'delete-record') {
     const recToDelete = target.parentElement.parentElement;
+    swal({
+      title: 'Record Deleted:',
+      text: `The record with e-mail id: ${recToDelete.id} has been deleted successfully!`,
+      icon: 'success',
+      button: 'Close',
+    });
     const ui = new UI();
     ui.removeRecord(recToDelete);
     Store.delete(recToDelete.id);

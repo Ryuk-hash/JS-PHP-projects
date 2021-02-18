@@ -1,0 +1,16 @@
+@media screen and (max-width: 890px) {
+  .topbar {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  body {
+    font-size: 80%;
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: normal;
+  }
+}
