@@ -133,12 +133,14 @@ select > option {
 }
 
 .displayBox {
+  width: 25%;
+  text-align: center;
   font-size: 80%;
   margin: 10px;
-  padding: 5px;
+  padding: 3px;
   background: #efbb60;
   color: #555;
-  border-radius: 10px;
+  border-radius: 30px;
   cursor: pointer;
 }
 
@@ -158,6 +160,15 @@ select > option {
 #card-back {
   display: none;
   opacity: 0;
+}
+
+#search-bar,
+#search-bar::placeholder {
+  color: black;
+}
+
+#search-bar {
+  background-color: #eee;
 }
 
 @-webkit-keyframes fadeIn {
