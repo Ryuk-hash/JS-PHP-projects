@@ -3,6 +3,7 @@ const inputForm = document.getElementById('main-form');
 const addSkillBtn = document.getElementById('add_skill');
 const displaySkillsDiv = document.getElementById('display_skills');
 const submitBtn = document.getElementById('submit_button');
+const searchInput = document.getElementById('search-bar');
 
 const cardFront = document.getElementById('card-front');
 const cardBack = document.getElementById('card-back');
@@ -10,7 +11,7 @@ const swapToFront = document.getElementById('swapToFront');
 const swapToBack = document.getElementById('swapToBack');
 
 const mainTable = document.getElementById('main-table');
-const tableBody = document.getElementById('table-body');
+let tableBody = document.getElementById('table-body');
 // const contentHolderDiv = document.getElementById('content-holder');
 
 // User class for initializing a new user
@@ -58,6 +59,38 @@ class UI {
         tableBody.appendChild(newTableRow);
       });
     }
+  }
+
+  displaySearchRecords(records) {
+    tableBody.innerHTML = '';
+    records.forEach((record) => {
+      const newTableRow = document.createElement('tr');
+      newTableRow.id = record.email;
+
+      let skills = '';
+
+      record.skills.forEach((skill) => {
+        skills += `<p id="${skill.id}">${skill.technology} | Level: ${skill.level}</p>`;
+      });
+
+      newTableRow.innerHTML = `
+      <td>
+        <p>${record.name}</p>
+      </td>
+      <td>
+        <p>${record.email}</p>
+      </td>
+      <td>  
+        <div id="skills">
+          ${skills}
+        </div>
+      </td>
+      <td>
+        <i id="delete-record" class="fa fa-trash"></i>
+      </td>`;
+
+      tableBody.appendChild(newTableRow);
+    });
   }
 
   removeRecord(record) {
@@ -140,6 +173,15 @@ window.addEventListener('DOMContentLoaded', function () {
   fetchTechnologies();
   Store.display();
 });
+searchInput.addEventListener(
+  'keyup',
+  debounce(function (e) {
+    searchHandler(e);
+  }, 350)
+  // function (e) {
+  //   searchHandler(e);
+  // }
+);
 addSkillBtn.addEventListener('click', (e) => addSkillHandler(e));
 inputForm.addEventListener('submit', (e) => submitFormHandler(e));
 swapToFront.addEventListener('click', (e) => swapPageHandler(e));
@@ -179,6 +221,30 @@ function fetchTechnologies() {
   };
 
   xhr.send();
+}
+
+function searchHandler(e) {
+  //'keyup'
+  if (e.target.value) {
+    console.log('ran');
+    const search = e.target.value.toLowerCase();
+
+    const users = Store.getData();
+
+    const filteredUsers = users.filter((user) => {
+      const userName = user.name.toLowerCase().includes(search);
+      const email = user.email.toLowerCase().includes(search);
+      const skills = user.skills.filter(
+        (el) => el.technology.toLowerCase().includes(search) || el.level.includes(search)
+      )[0];
+      return userName || email || skills;
+    });
+
+    const ui = new UI();
+    ui.displaySearchRecords(filteredUsers);
+
+    e.preventDefault();
+  }
 }
 
 const addSkillHandler = (e) => {
@@ -313,3 +379,18 @@ const deleteRecordHandler = (e) => {
 
   e.preventDefault();
 };
+
+function debounce(fn, d) {
+  let timer;
+
+  return function () {
+    let context = this,
+      args = arguments;
+
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, d);
+  };
+}
